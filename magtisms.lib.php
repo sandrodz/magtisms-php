@@ -84,24 +84,6 @@ class magtisms
 	}
 
 	/**
-	 * Check if number is valid georgan cellular network subscriber msisdn
-	 * @param  string  $number 
-	 * @return boolean         
-	 */
-	private function is_valid_mobile( $number )
-	{
-		if ( preg_match( '/^[57][1-9][0-9]{7}$/', $number ) ) {
-
-			return true;
-
-		} else {
-
-			return false;
-
-		}
-	}
-
-	/**
 	 * Curl is responsible for sending data to remote server
 	 * @param  string $query_string created from an array using method build_query_string
 	 * @param  string $url          either $sms_send_url or $sms_track_url
@@ -176,9 +158,22 @@ class magtisms
 		return $this->process( $post_fields, $this->sms_send_url );
 	}
 
+	/**
+	 * [track_sms description]
+	 * @param  [type] $sms_id [description]
+	 * @return [type]         [description]
+	 */
 	public function track_sms( $sms_id )
 	{
+		$post_fields = array(
+			'username'   => $this->username,
+			'password'   => $this->password,
+			'client_id'  => $this->client_id,
+			'service_id' => $this->service_id,
+			'message_id' => $sms_id,
+		);
 
+		return $this->process( $post_fields, $this->sms_track_url );
 	}
 
 }
