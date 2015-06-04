@@ -1,0 +1,1 @@
+# magti-sms-gateway-php
