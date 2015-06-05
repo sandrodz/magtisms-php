@@ -64,27 +64,19 @@ class magtisms
 	 */
 	private $responses = array(
 
-		'send_sms'  => array(
-
-			'0000' => 'Operation successful',
-			'0001' => 'Internal error',
-			'0003' => 'Invalid request',
-			'0004' => 'Invalid query',
-			'0005' => 'Empty message',
-			'0006' => 'Prefix error',
-			'0007' => 'MSISDN error',
-
-		),
-		'track_sms' => array(
-
-			'0'  => 'Undefined',
-			'1'  => 'Delievered to phone',
-			'2'  => 'Not delievered to phone',
-			'4'  => 'Queued on SMSC',
-			'8'  => 'Delievered to SMSC',
-			'16' => 'Not delievered to SMSC',
-
-		),
+		'0000' => 'Operation successful',
+		'0001' => 'Internal error',
+		'0003' => 'Invalid request',
+		'0004' => 'Invalid query',
+		'0005' => 'Empty message',
+		'0006' => 'Prefix error',
+		'0007' => 'MSISDN error',
+		'0'    => 'Undefined',
+		'1'    => 'Delievered to phone',
+		'2'    => 'Not delievered to phone',
+		'4'    => 'Queued on SMSC',
+		'8'    => 'Delievered to SMSC',
+		'16'   => 'Not delievered to SMSC',
 
 	);
 	
@@ -150,7 +142,25 @@ class magtisms
 	private function parse_result( $string )
 	{
 
-		return $string;
+		$resp = array();
+
+		$array = explode(' - ', $string);
+
+		$resp['code'] = $array[0];
+
+		if ( count($array) > 1 ) {
+
+			$resp['sms_id'] = $array[1];
+
+		}
+
+		if ( $this->verbose ) {
+
+			$resp['verbose'] = $this->responses[ $resp['code'] ];
+
+		}
+
+		return $resp;
 
 	}
 
