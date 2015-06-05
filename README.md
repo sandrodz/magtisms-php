@@ -1,1 +1,1 @@
-# Send and receive SMS via Magti gateway
+# Send and track SMS via Magti gateway
